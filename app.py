@@ -14,6 +14,9 @@ def home():
 @app.route("/webhook", methods=["POST"])
 def webhook():
     data = request.json
+    side = data.get("side")
+    symbol = data.get("symbol")
+    quantity = data.get("quantity")
 
     print("Webhook received:")
     print(data)
