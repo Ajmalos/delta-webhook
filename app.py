@@ -1,6 +1,10 @@
 from flask import Flask, request, jsonify
 import os
-
+import time
+import json
+import hmac
+import hashlib
+import requests
 app = Flask(__name__)
 
 @app.route("/", methods=["GET"])
@@ -16,6 +20,7 @@ def webhook():
 
     api_key = os.getenv("COINDCX_API_KEY")
     api_secret = os.getenv("COINDCX_API_SECRET")
+    ORDER_URL = "https://api.coindcx.com/exchange/v1/derivatives/futures/orders/create"
 
     if not api_key or not api_secret:
         return jsonify({
